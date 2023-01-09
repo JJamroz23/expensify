@@ -1,4 +1,4 @@
-import { AppBarContainer, Expensify } from "./navBar.style";
+import { AppBarContainer, Expensify } from "./navBar.styles";
 
 const NavBar = () => {
   return (
