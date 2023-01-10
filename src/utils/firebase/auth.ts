@@ -6,7 +6,7 @@ import {
   signOut,
   User,
 } from "firebase/auth";
-import { doc, getDoc, QueryDocumentSnapshot, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, database } from "./";
 
 const googleProvider = new GoogleAuthProvider();
@@ -22,35 +22,53 @@ export type AdditionalInforamtion = {
 };
 
 export type UserData = {
-  createdAt: Date;
+  createdAt?: Date;
   displayName: string;
   email: string;
+  uid: string;
+};
+
+const setUserDoc = async (
+  userDocRef: any,
+  { displayName, email }: any,
+  additionalInformation: any
+) => {
+  try {
+    await setDoc(userDocRef, {
+      displayName,
+      email,
+      createdAt: new Date(),
+      ...additionalInformation,
+    });
+  } catch (err) {
+    console.log("Error in creating user", (err as Error).message);
+    throw err;
+  }
 };
 
 export const createUserDocumentFromAuth = async (
   userAuth: User,
   additionalInformation = {} as AdditionalInforamtion
-): Promise<void | QueryDocumentSnapshot<UserData>> => {
-  if (!userAuth) return;
-  const userDocRef = doc(database, "users", userAuth.uid);
-
-  const userSnapShot = await getDoc(userDocRef);
-  if (!userSnapShot.exists()) {
-    const { displayName, email } = userAuth;
-    const createdAt = new Date();
-
-    try {
-      await setDoc(userDocRef, {
-        displayName,
-        email,
-        createdAt,
-        ...additionalInformation,
-      });
-    } catch (error) {
-      console.log("creating user error", error);
+): Promise<UserData> => {
+  try {
+    if (!userAuth) {
+      throw new Error("Missing user auth object.");
     }
-  } else {
-    return userSnapShot as QueryDocumentSnapshot<UserData>;
+    const userDocRef = doc(database, "users", userAuth.uid);
+    const userSnapshot = await getDoc(userDocRef);
+    if (!userSnapshot.exists()) {
+      await setUserDoc(userDocRef, userAuth, additionalInformation);
+    }
+
+    return {
+      uid: userAuth.uid,
+      email: userAuth.email,
+      displayName: userAuth.displayName,
+    } as UserData;
+  } catch (error) {
+    console.error(error);
+    console.error("Error creating user document from auth");
+    throw error;
   }
 };
 

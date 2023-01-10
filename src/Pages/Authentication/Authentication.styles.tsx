@@ -36,4 +36,9 @@ export const Button = styled.button`
   border-radius: 3px;
   background-color: lightblue;
   text-transform: uppercase;
+  cursor: pointer;
+
+  &:active {
+    transform: translateY(-0.25rem);
+  }
 `;
