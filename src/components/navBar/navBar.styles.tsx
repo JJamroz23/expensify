@@ -13,6 +13,21 @@ export const AppBarContainer = styled.div`
 `;
 
 export const Expensify = styled.div`
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
+`;
+
+export const NavButton = styled.button`
+display:inline-block
+font-size: 1rem;
+padding: 1rem;
+border: 2px solid;
+border-radius: 5px;
+background-color: lightblue;
+text-transform: uppercase;
+cursor: pointer;
+&:active,
+&:focus {
+  transform: translateY(-0.25rem);
+}
 `;
