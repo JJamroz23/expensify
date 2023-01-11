@@ -1,35 +1,17 @@
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { login, logout, selectUser } from "../../store/features/user/userSlice";
+import { useState } from "react";
+import { signInWithGooglePopup } from "../../utils/firebase/auth";
 import {
-  authStateChangeListener,
-  createUserDocumentFromAuth,
-  signInWithGooglePopup,
-} from "../../utils/firebase/auth";
-import {
+  Button,
   Layout,
   LayoutBox,
   LayoutHeader,
-  Button,
 } from "./Authentication.styles";
-import { useEffect } from "react";
 
 const Authentication = () => {
-  const userSelector = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    authStateChangeListener(async (user) => {
-      if (user) {
-        dispatch(login(await createUserDocumentFromAuth(user)));
-      } else {
-        dispatch(logout());
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+  const [isLoading, setIsLoading] = useState(false);
+  const signInWithGoogle = () => {
+    setIsLoading(true);
+    signInWithGooglePopup();
   };
 
   return (
@@ -37,7 +19,11 @@ const Authentication = () => {
       <LayoutBox>
         <LayoutHeader>Expensify</LayoutHeader>
         <p>It's time to login to your expensify app</p>
-        <Button onClick={signInWithGoogle}>Login</Button>
+        {isLoading ? (
+          <Button disabled>Login</Button>
+        ) : (
+          <Button onClick={signInWithGoogle}>Login</Button>
+        )}
       </LayoutBox>
     </Layout>
   );

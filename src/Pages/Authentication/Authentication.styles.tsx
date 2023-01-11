@@ -29,7 +29,7 @@ export const LayoutHeader = styled.div`
 `;
 
 export const Button = styled.button`
-  display:inline-block
+  display: inline-block;
   font-size: 1rem;
   padding: 1rem 2rem;
   border: 2px solid;
