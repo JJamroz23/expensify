@@ -5,7 +5,7 @@ export const GlobalStyle = createGlobalStyle`
 *:after,
 *:before {
     box-sizing: border-box;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
 }
 
@@ -18,7 +18,7 @@ html, body {
 
 html {
   font-size: 62.5%;
-  background-color: #f7f7f7;
+  background-color: #fff;
 }
 
 body {

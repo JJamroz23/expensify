@@ -1,17 +1,17 @@
 import { Route, Routes } from "react-router-dom";
-import NavBar from "../components/navBar/NavBar";
 import Authentication from "../Pages/Authentication/Authentication";
-import PrivateRoutes from "./privateRoutes";
-import PublicRoutes from "./publicRoutes";
+import ExpensesDashboard from "../Pages/ExpensesDashboard/ExpensesDashboard";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 
 const AppRouter = () => {
   return (
     <Routes>
-      <Route element={<PublicRoutes />}>
+      <Route element={<PublicRoute />}>
         <Route index element={<Authentication />} />
       </Route>
-      <Route element={<PrivateRoutes />}>
-        <Route path="/desktop" element={<NavBar />} />
+      <Route element={<PrivateRoute />}>
+        <Route path="/desktop" element={<ExpensesDashboard />} />
       </Route>
     </Routes>
   );

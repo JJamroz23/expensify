@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
-export const AppBarContainer = styled.div`
-  height: 70px;
-  width: 100%;
+export const WidthContainer = styled.div`
   display: flex;
-  padding: 1.5rem;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
+  margin: 0 auto;
+  max-width: 80rem;
+`;
+
+export const AppBarContainer = styled.div`
+  width: 100%;
+  padding: 2rem 0;
   background-color: #043066;
   color: #fff;
 `;
@@ -18,16 +20,16 @@ export const Expensify = styled.div`
 `;
 
 export const NavButton = styled.button`
-display:inline-block
-font-size: 1rem;
-padding: 1rem;
-border: 2px solid;
-border-radius: 5px;
-background-color: lightblue;
-text-transform: uppercase;
-cursor: pointer;
-&:active,
-&:focus {
-  transform: translateY(-0.25rem);
-}
+  display: inline-block;
+  font-size: 1rem;
+  padding: 1rem;
+  border: 2px solid;
+  border-radius: 5px;
+  background-color: lightblue;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-0.25rem);
+  }
 `;
