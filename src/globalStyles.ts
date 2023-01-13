@@ -10,8 +10,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 html, body {
-  overflow-x: hidden;
-  overflow-y: hidden;
+
   width: 100%;
   height: 100%;
 }
@@ -37,6 +36,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+
 
 
 `;

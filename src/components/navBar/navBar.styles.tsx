@@ -17,6 +17,7 @@ export const AppBarContainer = styled.div`
 export const Expensify = styled.div`
   font-size: 3.5rem;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 export const NavButton = styled.button`

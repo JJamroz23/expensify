@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signOutUser } from "../../utils/firebase/auth";
 import {
   AppBarContainer,
@@ -13,6 +13,11 @@ const NavBar = () => {
   const userSelector = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+  const dashnav = () => {
+    navigate("/dashboard");
+  };
+
   const logOutOfApp = () => {
     dispatch(logout());
     signOutUser();
@@ -21,7 +26,7 @@ const NavBar = () => {
   return (
     <AppBarContainer>
       <WidthContainer>
-        <Expensify>Expensify</Expensify>
+        <Expensify onClick={dashnav}>Expensify</Expensify>
         <Link to="/">
           {userSelector ? (
             <NavButton onClick={logOutOfApp}>LOG OUT</NavButton>

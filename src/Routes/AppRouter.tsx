@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Authentication from "../Pages/Authentication/Authentication";
+import ExpenseAddBoard from "../Pages/ExpenseAddBoard/ExpenseAddBoard";
 import ExpensesDashboard from "../Pages/ExpensesDashboard/ExpensesDashboard";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
@@ -11,7 +12,9 @@ const AppRouter = () => {
         <Route index element={<Authentication />} />
       </Route>
       <Route element={<PrivateRoute />}>
-        <Route path="/desktop" element={<ExpensesDashboard />} />
+        <Route path="/dashboard" element={<ExpensesDashboard />} />
+        <Route path="/addboard/new" element={<ExpenseAddBoard />} />
+        <Route path="/addboard/:expenseId" element={<ExpenseAddBoard />} />
       </Route>
     </Routes>
   );
