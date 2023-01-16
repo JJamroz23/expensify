@@ -1,9 +1,23 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 import { omit } from "lodash";
 import { Expense } from "../../store/slices/expenses/expensesSlice";
 import { database } from "./";
 import { UserData } from "./auth";
+
+export const deleteExpense = async (
+  userId: UserData["uid"],
+  expenseId: Expense["uid"]
+) => {
+  await deleteDoc(doc(database, `users/${userId}/expenses`, expenseId));
+};
 
 export const getExpense = async (
   userId: UserData["uid"],
@@ -49,7 +63,6 @@ export const saveExpense = async (
     console.log(expenseDto.uid);
   }
   try {
-    console.log(expenseDto, "122");
     const expenseRef = doc(
       database,
       `users/${userId}/expenses`,

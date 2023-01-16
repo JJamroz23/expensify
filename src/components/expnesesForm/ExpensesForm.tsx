@@ -3,8 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
 import { selectUser } from "../../store/slices/user/authSlice";
 import { UserData } from "../../utils/firebase/auth";
-import { getExpense, saveExpense } from "../../utils/firebase/expense";
-import DayPickerComponent from "../dayPicker/DayPicker";
+import {
+  deleteExpense,
+  getExpense,
+  saveExpense,
+} from "../../utils/firebase/expense";
 import {
   AddButton,
   AddContainer,
@@ -15,6 +18,9 @@ import {
   InputElement,
   TextAreaElement,
 } from "./ExpensesForm.styles";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import dayjs from "dayjs";
 
 const ExpenseForm = () => {
   const user = useAppSelector(selectUser);
@@ -25,6 +31,7 @@ const ExpenseForm = () => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(0);
   const [note, setNote] = useState("");
+  const [createdAt, setcreatedAt] = useState(new Date());
 
   const onDescriptionChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDescription(e.target.value);
@@ -50,6 +57,7 @@ const ExpenseForm = () => {
       setDescription(expenseData.description);
       setAmount(expenseData.amount);
       setNote(expenseData.note);
+      setcreatedAt(new Date(expenseData.createdAt));
     } catch (error) {
       console.log(error);
     }
@@ -60,6 +68,17 @@ const ExpenseForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const deleteExpenseHandler = async (event: any) => {
+    event?.preventDefault();
+    if (!params.expenseId) return;
+    try {
+      await deleteExpense((user as UserData).uid, params.expenseId);
+      navigate("/dashboard");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const saveExpenseHandler = async (event: any) => {
     event.preventDefault();
 
@@ -67,11 +86,9 @@ const ExpenseForm = () => {
       description,
       amount,
       note,
-      createdAt: 1212,
+      createdAt: dayjs(createdAt.toISOString()).format("YYYY-MM-DD"),
       uid: params.expenseId || "",
     });
-
-    console.log("expense to firebase", 1);
 
     navigate("/dashboard");
   };
@@ -101,16 +118,31 @@ const ExpenseForm = () => {
             onChange={onAmountChanged}
             value={amount}
           />
-          <DayPickerComponent />
+          <DatePicker
+            selected={createdAt}
+            // @ts-ignore
+            onChange={(date) => setcreatedAt(date)}
+          />
           <TextAreaElement
             placeholder="Expense description"
             onChange={onNoteChanged}
             value={note}
           />
           <div>
-            <AddButton onClick={saveExpenseHandler} disabled={!canSave}>
-              Add expense
-            </AddButton>
+            {params.expenseId ? (
+              <>
+                <AddButton onClick={saveExpenseHandler} disabled={!canSave}>
+                  Add expense
+                </AddButton>
+                <AddButton onClick={deleteExpenseHandler}>
+                  Delete expense
+                </AddButton>
+              </>
+            ) : (
+              <AddButton onClick={saveExpenseHandler} disabled={!canSave}>
+                Add expense
+              </AddButton>
+            )}
           </div>
         </FormContainer>
       </AddItemContainer>

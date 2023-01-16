@@ -25,7 +25,7 @@ export interface Expense {
   description: string;
   note: string;
   amount: number;
-  createdAt: number;
+  createdAt: string;
 }
 
 interface InitialExpensesState {
