@@ -1,6 +1,5 @@
 import {
-  FilterBox,
-  FormFIlter,
+  FormFilter,
   InputText,
   Select,
   RangeContainer,
@@ -27,31 +26,29 @@ const ExpensesFilter = ({ setSortBy, setText }: any) => {
 
   return (
     <ContentContainer>
-      <FilterBox>
-        <FormFIlter>
-          <InputText
-            type="text"
-            placeholder="search expense"
-            onChange={onTextChange}
+      <FormFilter>
+        <InputText
+          type="text"
+          placeholder="search expense"
+          onChange={onTextChange}
+        />
+        <Select onChange={onSortChange}>
+          <option value="date">Date</option>;
+          <option value="amount">Amount</option>
+        </Select>
+        <RangeContainer>
+          <DatePicker
+            selectsRange={true}
+            startDate={startDate}
+            endDate={endDate}
+            onChange={(update) => {
+              // @ts-ignore
+              setDateRange(update);
+            }}
+            isClearable={true}
           />
-          <Select onChange={onSortChange}>
-            <option value="date">Date</option>;
-            <option value="amount">Amount</option>
-          </Select>
-          <RangeContainer>
-            <DatePicker
-              selectsRange={true}
-              startDate={startDate}
-              endDate={endDate}
-              onChange={(update) => {
-                // @ts-ignore
-                setDateRange(update);
-              }}
-              isClearable={true}
-            />
-          </RangeContainer>
-        </FormFIlter>
-      </FilterBox>
+        </RangeContainer>
+      </FormFilter>
     </ContentContainer>
   );
 };

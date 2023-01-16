@@ -3,6 +3,7 @@ import {
   SummaryBox,
   SummaryButton,
   ContentContainer,
+  TextContainer,
 } from "./ExpensesSummary.styles";
 import { useAppSelector } from "../../hooks/hooks";
 import { selectExpenses } from "../../store/slices/expenses/expensesSlice";
@@ -22,10 +23,10 @@ export const ExpensesSummary = () => {
   return (
     <SummaryBox>
       <ContentContainer>
-        <h2>
-          {totalNumber} {totalNumber === 1 ? "expense" : "expenses"} with total
-          value {totalAmount}$
-        </h2>
+        <TextContainer>
+          <b>{totalNumber}</b> {totalNumber === 1 ? "expense" : "expenses"} with
+          total value <b>{totalAmount}$</b>
+        </TextContainer>
         <SummaryButton onClick={addboard}>Add Expense</SummaryButton>
       </ContentContainer>
     </SummaryBox>

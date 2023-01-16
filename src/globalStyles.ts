@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { device } from "./Styles";
 
 export const GlobalStyle = createGlobalStyle`
 *,
@@ -18,6 +19,14 @@ html, body {
 html {
   font-size: 62.5%;
   background-color: #fff;
+
+  @media ${device.tablet} { 
+    font-size: 56.25%;
+  }
+
+  @media ${device.mobile} { 
+    font-size: 50%;
+  }
 }
 
 body {

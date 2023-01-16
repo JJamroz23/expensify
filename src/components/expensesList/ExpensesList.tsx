@@ -18,6 +18,7 @@ import {
   ExpItem2,
   ExpItem3,
   ExpItem4,
+  Button,
 } from "./ExpensesList.styles";
 
 type ExpenseKeys = keyof Expense;
@@ -76,13 +77,13 @@ const ExpensesList = () => {
         <ListBox>
           <>
             <TitleBox>
-              <button onClick={() => setSortBy("description")}>Expense</button>
+              <Button onClick={() => setSortBy("description")}>Expense</Button>
               {isDesc ? (
-                <button onClick={() => setIsDesc(false)}>Decrement</button>
+                <Button onClick={() => setIsDesc(false)}>Decrement</Button>
               ) : (
-                <button onClick={() => setIsDesc(true)}>Increment</button>
+                <Button onClick={() => setIsDesc(true)}>Increment</Button>
               )}
-              <button onClick={() => setSortBy("amount")}>Amount</button>
+              <Button onClick={() => setSortBy("amount")}>Amount</Button>
             </TitleBox>
             {filterByText.map((expense) => (
               <ExpList
@@ -90,7 +91,9 @@ const ExpensesList = () => {
                 onClick={() => navigate(`/addboard/${expense.uid}`)}
               >
                 <ExpItem1>{expense.description}</ExpItem1>
-                <ExpItem2>{expense.amount} $</ExpItem2>
+                <ExpItem2>
+                  {expense.amount} <b>$</b>
+                </ExpItem2>
                 <ExpItem3>{expense.note}</ExpItem3>
                 <ExpItem4>{expense.createdAt}</ExpItem4>
               </ExpList>
