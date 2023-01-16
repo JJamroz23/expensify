@@ -1,4 +1,3 @@
-import { ExpensesFilter } from "../../components/expensesFilter/ExpensesFilter";
 import ExpensesList from "../../components/expensesList/ExpensesList";
 import { ExpensesSummary } from "../../components/expensesSummary/ExpensesSummary";
 import NavBar from "../../components/navBar/NavBar";
@@ -9,7 +8,6 @@ const ExpensesDashboard = () => {
     <Dashboard>
       <NavBar />
       <ExpensesSummary />
-      <ExpensesFilter />
       <ExpensesList />
     </Dashboard>
   );

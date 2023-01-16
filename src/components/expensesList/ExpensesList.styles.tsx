@@ -38,3 +38,9 @@ export const ExpItem3 = styled(ExpItem1)`
   font-weight: 400;
   font-size: 1.6rem;
 `;
+
+export const ExpItem4 = styled(ExpItem1)`
+  font-weight: 400;
+  justify-self: end;
+  font-size: 1.6rem;
+`;

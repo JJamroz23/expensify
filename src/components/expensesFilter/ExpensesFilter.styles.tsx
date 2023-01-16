@@ -1,18 +1,28 @@
 import styled from "styled-components";
 
 export const FilterBox = styled.div`
-  width: 100%;
-  padding: 1.5rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 1.5rem 0;
+  margin: 0 auto;
+  max-width: 80rem;
 `;
 
-export const InputText = styled.input``;
-export const Select = styled.select``;
+export const InputText = styled.input`
+  width: 25%;
+  height: 3rem;
+  font-size: 1.6rem;
+`;
+export const Select = styled.select`
+  width: 25%;
+  height: 3rem;
+  font-size: 1.6rem;
+`;
 
 export const FormFIlter = styled.div`
   display: flex;
-  gap: 4rem;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+export const RangeContainer = styled.div`
+  /* width: 25%; */
 `;
