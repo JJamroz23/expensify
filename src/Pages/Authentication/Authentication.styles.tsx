@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import bgImg from "../../images/bg-img.jpg";
+import { FontHeader, ButtonStyles } from "../../Styles";
 
 export const Layout = styled.div`
   align-items: center;
@@ -13,7 +14,6 @@ export const Layout = styled.div`
 
 export const LayoutBox = styled.div`
   background-color: #fff;
-  // border: 2px solid;
   border-radius: 0.6rem;
   padding: 2rem;
   text-align: center;
@@ -24,19 +24,12 @@ export const LayoutBox = styled.div`
 `;
 
 export const LayoutHeader = styled.div`
-  font-size: 3.6rem;
-  font-weight: 700;
+  ${FontHeader}
 `;
 
 export const Button = styled.button`
-  display: inline-block;
-  font-size: 1rem;
-  padding: 1rem 2rem;
-  border: 2px solid;
-  border-radius: 3px;
-  background-color: lightblue;
-  text-transform: uppercase;
-  cursor: pointer;
+  ${ButtonStyles}
+  font-size: 1.6rem;
 
   &:active {
     transform: translateY(-0.25rem);

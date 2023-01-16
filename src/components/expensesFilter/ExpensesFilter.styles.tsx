@@ -1,25 +1,16 @@
 import styled from "styled-components";
-
-export const FilterBox = styled.div`
-  padding: 1.5rem 0;
-  margin: 0 auto;
-  max-width: 80rem;
-`;
+import { InputFilterStyles } from "../../Styles";
 
 export const InputText = styled.input`
-  width: 25%;
-  height: 3rem;
-  font-size: 1.6rem;
+  ${InputFilterStyles}
 `;
 export const Select = styled.select`
-  width: 25%;
-  height: 3rem;
-  font-size: 1.6rem;
+  ${InputFilterStyles}
 `;
 
-export const FormFIlter = styled.div`
+export const FormFilter = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 `;
 
