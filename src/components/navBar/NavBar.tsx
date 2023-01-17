@@ -6,7 +6,7 @@ import {
   NavButton,
   WidthContainer,
 } from "./navBar.styles";
-import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import { selectUser, logout } from "../../store/slices/user/authSlice";
 
 const NavBar = () => {

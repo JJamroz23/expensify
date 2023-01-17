@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks";
 import { selectUser } from "../../store/slices/user/authSlice";
 import { UserData } from "../../utils/firebase/auth";
 import {

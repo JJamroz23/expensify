@@ -1,9 +1,7 @@
 import { selectUser } from "../store/slices/user/authSlice";
-import { useAppSelector } from "./hooks";
+import { useAppSelector } from "./useAppSelector";
 
-const useIsLoggedIn = () => {
+export const useIsLoggedIn = () => {
   const user = useAppSelector(selectUser);
   return !!user;
 };
-
-export default useIsLoggedIn;
