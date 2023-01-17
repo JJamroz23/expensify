@@ -1,19 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserData } from "../../../utils/firebase/auth";
-import { getExpenses } from "../../../utils/firebase/expense";
+import { getExpenses as getExpensesRequest } from "../../../utils/firebase/expense";
 import { RootState } from "../../store";
 import { selectUser } from "../user/authSlice";
 
-export const getExpense = createAsyncThunk<
+export const getExpenses = createAsyncThunk<
   Expense[],
   void,
   {
     state: RootState;
   }
->("expenses/getExpense", async (_, { getState, rejectWithValue }) => {
+>("expenses/getExpenses", async (_, { getState, rejectWithValue }) => {
   try {
     const user = selectUser(getState());
-    const expensesList = await getExpenses((user as UserData).uid);
+    const expensesList = await getExpensesRequest((user as UserData).uid);
     return expensesList;
   } catch (err: any) {
     return rejectWithValue(err?.message || "Error fetching expenses");
@@ -49,16 +49,18 @@ export const expensesSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(getExpense.fulfilled, (state, action) => {
+    builder.addCase(getExpenses.fulfilled, (state, action) => {
       state.items = action.payload;
+      state.loading = false;
     });
-    builder.addCase(getExpense.pending, (state, action) => {
+    builder.addCase(getExpenses.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(getExpense.rejected, (state, action) => {
+    builder.addCase(getExpenses.rejected, (state, action) => {
       console.log(12, action.payload);
       // @ts-ignore
       state.error = action.payload;
+      state.loading = false;
     });
   },
 });

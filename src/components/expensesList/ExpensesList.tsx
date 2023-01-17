@@ -1,91 +1,86 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   Expense,
-  getExpense,
+  getExpenses,
   restoreDefaultExpenses,
   selectExpensesState,
-  selectExpenses,
 } from "../../store/slices/expenses/expensesSlice";
 import ExpensesFilter from "../expensesFilter/ExpensesFilter";
 import Loader from "../loader/Loader";
 import {
-  ExpList,
-  ListBox,
-  TitleBox,
+  Button,
   ExpItem1,
   ExpItem2,
   ExpItem3,
   ExpItem4,
-  Button,
+  ExpList,
+  ListBox,
+  TitleBox,
 } from "./ExpensesList.styles";
 
 type ExpenseKeys = keyof Expense;
 
+function filterByText<T extends { description: string }>(
+  array: T[],
+  text: string
+) {
+  return array.filter((a) => a.description.includes(text.toLowerCase()));
+}
+
 const ExpensesList = () => {
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector(selectExpensesState);
-
-  const items = [...useAppSelector(selectExpenses)];
-
+  const navigate = useNavigate();
+  const { loading, items } = useAppSelector(selectExpensesState);
   const [sortBy, setSortBy] = useState<ExpenseKeys>("amount");
   const [isDesc, setIsDesc] = useState(true);
   const [text, setText] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getExpense());
-
+    dispatch(getExpenses());
     return () => {
       dispatch(restoreDefaultExpenses());
     };
   }, [dispatch]);
 
-  const filterByText = items.filter((a) =>
-    a.description.includes(text.toLowerCase())
-  );
+  const sortedItems = useMemo(() => {
+    const arr = text ? filterByText<Expense>(items, text) : [...items];
 
-  useMemo(() => {
-    return filterByText;
-  }, [filterByText]);
-
-  useMemo(() => {
     if (sortBy === "description" || sortBy === "note" || sortBy === "uid") {
-      return filterByText.sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
+      return arr.sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
     }
 
     if (sortBy === "createdAt") {
-      return filterByText.sort((a, b) =>
+      return arr.sort((a, b) =>
         isDesc
           ? new Date(b[sortBy]).getTime() - new Date(a[sortBy]).getTime()
           : new Date(a[sortBy]).getTime() - new Date(b[sortBy]).getTime()
       );
     }
 
-    return filterByText.sort((a, b) =>
+    // by amount
+    return arr.sort((a, b) =>
       isDesc ? b[sortBy] - a[sortBy] : a[sortBy] - b[sortBy]
     );
-  }, [sortBy, filterByText, isDesc]);
+  }, [items, sortBy, isDesc, text]);
 
   return (
     <div>
       <ExpensesFilter setSortBy={setSortBy} setText={setText} />
-      {!loading ? (
+      {loading ? (
         <Loader />
       ) : (
         <ListBox>
           <>
             <TitleBox>
               <Button onClick={() => setSortBy("description")}>Expense</Button>
-              {isDesc ? (
-                <Button onClick={() => setIsDesc(false)}>Decrement</Button>
-              ) : (
-                <Button onClick={() => setIsDesc(true)}>Increment</Button>
-              )}
+              <Button onClick={() => setIsDesc(!isDesc)}>
+                {isDesc ? "DESC" : "ASC"}
+              </Button>
               <Button onClick={() => setSortBy("amount")}>Amount</Button>
             </TitleBox>
-            {filterByText.map((expense) => (
+            {sortedItems.map((expense) => (
               <ExpList
                 key={expense.uid}
                 onClick={() => navigate(`/addboard/${expense.uid}`)}
