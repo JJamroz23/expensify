@@ -34,7 +34,7 @@ export const ExpItem1 = styled.div`
 
 export const ExpItem2 = styled(ExpItem1)`
   justify-self: end;
-  font-weight: 400;
+  font-weight: 700;
 `;
 export const ExpItem3 = styled(ExpItem1)`
   font-weight: 400;
