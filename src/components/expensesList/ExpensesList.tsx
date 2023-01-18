@@ -87,7 +87,10 @@ const ExpensesList = () => {
               >
                 <ExpItem1>{expense.description}</ExpItem1>
                 <ExpItem2>
-                  {expense.amount} <b>$</b>
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(expense.amount)}
                 </ExpItem2>
                 <ExpItem3>{expense.note}</ExpItem3>
                 <ExpItem4>{expense.createdAt}</ExpItem4>

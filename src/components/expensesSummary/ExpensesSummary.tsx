@@ -15,12 +15,17 @@ export const ExpensesSummary = () => {
   const totalAmount = expenses.reduce((val, curr) => val + curr.amount, 0);
   const totalNumber = expenses.length;
 
+  const totalAmountCurrency = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(totalAmount);
+
   return (
     <SummaryBox>
       <ContentContainer>
         <TextContainer>
           <b>{totalNumber}</b> {totalNumber === 1 ? "expense" : "expenses"} with
-          total value <b>{totalAmount} $</b>
+          total value <b>{totalAmountCurrency}</b>
         </TextContainer>
         <SummaryButton onClick={() => navigate("/addboard/new")}>
           Add Expense
