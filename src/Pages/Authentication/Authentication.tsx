@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { signInWithGooglePopup } from "../../utils/firebase/auth";
 import {
   Button,
@@ -9,6 +10,7 @@ import {
 
 const Authentication = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
   const signInWithGoogle = () => {
     setIsLoading(true);
     signInWithGooglePopup();
@@ -18,11 +20,11 @@ const Authentication = () => {
     <Layout>
       <LayoutBox>
         <LayoutHeader>Expensify</LayoutHeader>
-        <p>It's time to login to your expensify app</p>
+        <p>{t("auth.text")}</p>
         {isLoading ? (
-          <Button disabled>Login</Button>
+          <Button disabled>{t("auth.in")}</Button>
         ) : (
-          <Button onClick={signInWithGoogle}>Login</Button>
+          <Button onClick={signInWithGoogle}>{t("auth.in")}</Button>
         )}
       </LayoutBox>
     </Layout>

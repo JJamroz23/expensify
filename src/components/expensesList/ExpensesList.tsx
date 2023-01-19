@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
@@ -36,6 +37,7 @@ const ExpensesList = () => {
   const [sortBy, setSortBy] = useState<ExpenseKeys>("amount");
   const [isDesc, setIsDesc] = useState(true);
   const [text, setText] = useState("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(getExpenses());
@@ -74,11 +76,15 @@ const ExpensesList = () => {
         <ListBox>
           <>
             <TitleBox>
-              <Button onClick={() => setSortBy("description")}>Expense</Button>
+              <Button onClick={() => setSortBy("description")}>
+                {t("list.expense")}
+              </Button>
               <Button onClick={() => setIsDesc(!isDesc)}>
                 {isDesc ? "DESC" : "ASC"}
               </Button>
-              <Button onClick={() => setSortBy("amount")}>Amount</Button>
+              <Button onClick={() => setSortBy("amount")}>
+                {t("list.amount")}
+              </Button>
             </TitleBox>
             {sortedItems.map((expense) => (
               <ExpList
