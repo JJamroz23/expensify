@@ -6,6 +6,7 @@ import { store } from "./store/store";
 import { auth } from "./utils/firebase";
 import "react-day-picker/dist/style.css";
 import Loader from "./components/loader/Loader";
+import './i18n';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

@@ -7,10 +7,12 @@ import {
 import DatePicker from "react-datepicker";
 import { ContentContainer } from "../expensesSummary/ExpensesSummary.styles";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const ExpensesFilter = ({ setSortBy, setText }: any) => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
+  const { t } = useTranslation();
 
   const onSortChange = (e: React.FormEvent<HTMLSelectElement>) => {
     if (e.currentTarget.value === "date") {
@@ -33,8 +35,8 @@ const ExpensesFilter = ({ setSortBy, setText }: any) => {
           onChange={onTextChange}
         />
         <Select onChange={onSortChange}>
-          <option value="date">Date</option>;
-          <option value="amount">Amount</option>
+          <option value="date">{t("filter.date")}</option>;
+          <option value="amount">{t("filter.amount")}</option>
         </Select>
         <RangeContainer>
           <DatePicker

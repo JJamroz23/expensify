@@ -21,6 +21,7 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs from "dayjs";
+import { useTranslation } from "react-i18next";
 
 const ExpenseForm = () => {
   const user = useAppSelector(selectUser);
@@ -32,6 +33,7 @@ const ExpenseForm = () => {
   const [amount, setAmount] = useState(0);
   const [note, setNote] = useState("");
   const [createdAt, setcreatedAt] = useState(new Date());
+  const { t } = useTranslation();
 
   const onDescriptionChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDescription(e.target.value);
@@ -99,9 +101,9 @@ const ExpenseForm = () => {
     <AddContainer>
       <ExpenseNav>
         {params.expenseId ? (
-          <ExpenseNavText>Edit Expense</ExpenseNavText>
+          <ExpenseNavText>{t("form.edit")}</ExpenseNavText>
         ) : (
-          <ExpenseNavText>Add Expense</ExpenseNavText>
+          <ExpenseNavText>{t("form.add")}</ExpenseNavText>
         )}
       </ExpenseNav>
       <AddItemContainer>
@@ -132,15 +134,15 @@ const ExpenseForm = () => {
             {params.expenseId ? (
               <>
                 <AddButton onClick={saveExpenseHandler} disabled={!canSave}>
-                  Add expense
+                  {t("form.add")}
                 </AddButton>
                 <AddButton onClick={deleteExpenseHandler}>
-                  Delete expense
+                  {t("form.delete")}
                 </AddButton>
               </>
             ) : (
               <AddButton onClick={saveExpenseHandler} disabled={!canSave}>
-                Add expense
+                {t("form.add")}
               </AddButton>
             )}
           </div>
